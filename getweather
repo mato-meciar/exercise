@@ -1,1 +1,6 @@
-wget -q -O - 'https://api.openweathermap.org/data/2.5/weather?q='$OWM_CITY'&appid='$OWM_API_KEY'&units=metric' | python3 -c "import sys, json; response = json.load(sys.stdin); city = response['name']; description = response['weather'][0]['description']; temp = response['main']['temp']; humidity = response['main']['humidity']; print(f'city=\"{city}\", description=\"{description}\", temp={temp}, humidity={humidity}')"
+#!/bin/sh
+if [ -n "$OWM_API_KEY" ] && [ -n "$OWM_CITY" ]; then
+	wget -q -O - 'https://api.openweathermap.org/data/2.5/weather?q='$OWM_CITY'&appid='$OWM_API_KEY'&units=metric' | python3 -c "import sys, json; response = json.load(sys.stdin); city = response['name']; description = response['weather'][0]['description']; temp = response['main']['temp']; humidity = response['main']['humidity']; print(f'city=\"{city}\", description=\"{description}\", temp={temp}, humidity={humidity}')"
+else
+	echo "Required environment variables not present! Exitting..."
+fi
