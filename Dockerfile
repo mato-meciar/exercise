@@ -4,4 +4,4 @@ COPY getweather /app/getweather
 
 RUN chmod +x /app/getweather
 
-RUN /app/getweather
+CMD ["sh", "/app/getweather"]
