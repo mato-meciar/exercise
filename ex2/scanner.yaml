@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: scanner
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: scanner
+            image: matomeciar/exercise:scanner
+            imagePullPolicy: IfNotPresent
+            args: ["8.8.8.8"]
+          restartPolicy: OnFailure
